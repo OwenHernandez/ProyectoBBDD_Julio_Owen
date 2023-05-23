@@ -82,7 +82,7 @@ create table nota(
     id_Actividad int references actividad(id) 
 );
 
-create realiza_alumno(
+create table realiza_alumno(
     id_Alumno int not null,
     id_Actividad int not null,
     PRIMARY KEY(id_Alumno,id_Actividad),
