@@ -18,7 +18,6 @@ create table alumno(
     id int not null auto_increment,
     faltas int,
     actitud int,
-    id_Persona int,
     PRIMARY KEY(id),
     id_Persona int references persona(id),
     id_Curso int references curso(id)
