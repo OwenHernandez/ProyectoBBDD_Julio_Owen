@@ -82,3 +82,11 @@ create table nota(
     PRIMARY KEY(id),
     id_Actividad int references actividad(id) 
 );
+
+create realiza_alumno(
+    id_Alumno int not null,
+    id_Actividad int not null,
+    PRIMARY KEY(id_Alumno,id_Actividad),
+    FOREIGN KEY(id_Alumno) references alumno(id),
+    FOREIGN KEY(id_Actividad) references actividad(id)
+);
