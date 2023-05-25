@@ -9,7 +9,7 @@ create table persona(
 
 create table docente(
     id int not null auto_increment,
-    trabajo varchar(100),
+    trabajo enum("Historia","Lenguaje","Matematicas","Filosofia") not null,
     PRIMARY KEY(id),
     id_Persona int references persona(id)
 );
