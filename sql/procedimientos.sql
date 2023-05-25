@@ -61,11 +61,10 @@ begin
     declare counter int;
     declare contador int;
     set counter=(select count(*)+1 from persona);
-    set id_DocenteRnd=(select id from persona where id=counter);
     set contador=1;
     while (contador<=numeroIns) do
+        set id_DocenteRnd=(select id from persona where id=counter);
         if id_DocenteRnd!=null then
-            set id_PersonaRnd=(select id from persona where id=counter);
             set trabajoRnd = elt(floor(rand()*4) + 1, 'Historia', 'Lenguaje', 'Matematicas','Filosofia');
             Insert into docente values(null,trabajoRnd,id_PersonaRnd);
         end if;
@@ -152,10 +151,11 @@ begin
     declare id_AlumnoRnd int;
     declare counter int;
     declare contador int;
-    set counter=(select count(*)+1 from persona);
-    set id_AlumnoRnd=(select id from alumno where id=counter)
+    set counter=(select count(*)+1 from alumno);
+    
     set contador=1;
     while (contador<=numeroIns) do
+        set id_AlumnoRnd=(select id from alumno where id=counter)
         if id_AlumnoRnd!=null then
             set fecha_FaltaRnd = (
                         now() - INTERVAL FLOOR(RAND() * 14) DAY 
@@ -163,10 +163,102 @@ begin
                         + INTERVAL FLOOR(RAND() * 59) MINUTE
                         + INTERVAL FLOOR(RAND() * 59) SECOND
             );
-            set id_AlumnoRnd=(select id from alumno where id=counter);
             Insert into persona values(null,fecha_FaltaRnd,id_AlumnoRnd);
         end if;
         contador++;
+        counter++;
     end while;
+end
+//
+
+--Pertenece
+
+
+drop procedure if exists Insert_Pertenece;
+delimiter//
+create procedure Insert_Pertenece(in num_inserts int)
+begin
+  declare id_AlumnoRnd int;
+  declare id_GrupoRnd int;
+  declare counterAlumno int;
+  declare counterGrupo int;
+  set counterAlumno=(select count(*)+1 from alumno);
+  set counterGrupo=(select count(*)+1 from grupo);
+  set id_AlumnoRnd=1;
+  set id_GrupoRnd=1;
+  set contador=1;
+  while (contador<=num_inserts or id_AlumnoRnd!=null or id_GrupoRnd!=null) do
+    set id_AlumnoRnd=(select id from alumno where id=counterAlumno);
+    set id_GrupoRnd=(select id from grupo where id=counterGrupo);
+    
+    if id_AlumnoRnd!=null and id_GrupoRnd !=null then
+        insert into pertenece values(id_AlumnoRnd, id_GrupoRnd);
+    end if;
+    
+    contador++;
+    counter++;
+  end while;
+
+end
+//
+
+--Realiza Grupo
+
+
+drop procedure if exists Insert_Realiza_Grupo;
+delimiter//
+create procedure Insert_Realiza_Grupo(in num_inserts int)
+begin
+  declare id_ActividadRnd int;
+  declare id_GrupoRnd int;
+  declare counterActividad int;
+  declare counterGrupo int;
+  set counterActividad=(select count(*)+1 from actividad);
+  set counterGrupo=(select count(*)+1 from grupo);
+  set id_ActividadRnd=1;
+  set id_GrupoRnd=1;
+  set contador=1;
+  while (contador<=num_inserts or id_ActividadRnd!=null or id_GrupoRnd!=null) do
+    set id_ActividadRnd=(select id from actividad where id=counterActividad);
+    set id_GrupoRnd=(select id from grupo where id=counterGrupo);
+    
+    if id_ActividadRnd!=null and id_GrupoRnd !=null then
+        insert into realiza_grupo values(id_ActividadRnd, id_GrupoRnd);
+    end if;
+    
+    contador++;
+    counter++;
+  end while;
+
+end
+//
+
+--Realiza_alumno
+
+drop procedure if exists Insert_Realiza_alumno;
+delimiter//
+create procedure Insert_Realiza_alumno(in num_inserts int)
+begin
+  declare id_ActividadRnd int;
+  declare id_AlumnoRnd int;
+  declare counterActividad int;
+  declare counterAlumno int;
+  set counterActividad=(select count(*)+1 from actividad);
+  set counterAlumno=(select count(*)+1 from alumno);
+  set id_ActividadRnd=1;
+  set id_AlumnoRnd=1;
+  set contador=1;
+  while (contador<=num_inserts or id_ActividadRnd!=null or id_AlumnoRnd!=null) do
+    set id_ActividadRnd=(select id from actividad where id=counterActividad);
+    set id_AlumnoRnd=(select id from alumno where id=counterAlumno);
+    
+    if id_ActividadRnd!=null and id_AlumnoRnd !=null then
+        insert into realiza_alumno values(id_ActividadRnd, id_AlumnoRnd);
+    end if;
+    
+    contador++;
+    counter++;
+  end while;
+
 end
 //
