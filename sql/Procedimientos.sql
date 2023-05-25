@@ -10,7 +10,7 @@ begin
   set contador=1;
   while (contador<=num_inserts) do
     set nombreRnd = concat("Persona", idRnd);
-    insert into persona values(idRnd, nombreRnd);
+    insert into persona values(null, nombreRnd);
     contador++;
     idRnd++;
   end while;
