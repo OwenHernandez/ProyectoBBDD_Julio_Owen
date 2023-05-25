@@ -107,3 +107,21 @@ end
 //
 
 --Curso
+
+
+--Grupo
+
+drop procedure if exists Insert_grupo;
+delimiter//
+create procedure Insert_grupo(in num_inserts int)
+begin
+  declare integrantesRnd int;
+  declare contador int;
+  set contador=1;
+  while (contador<=num_inserts) do
+    set integrantesRnd = (select floor(rand()*(5 - 1) + 1));
+    contador++;
+    insert into grupo values(null, integrantesRnd);
+  end while;
+end
+//
