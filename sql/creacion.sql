@@ -72,7 +72,7 @@ create table pertenece(
 drop table if exists actividad;
 create table actividad(
     id int not NULL auto_increment,
-    tipo varchar(100),
+    tipo enum("examen","actitud","destreza"),
     PRIMARY KEY(id)
 );
 
