@@ -1,31 +1,41 @@
-Tabla Alumno
+--Persona
 
-drop procedure if exists Insert_alumno;
+drop procedure if exists Insert_persona;
 delimiter//
-create procedure Insert_alumno(in num_inserts int)
+create procedure Insert_persona(in num_inserts int)
 begin
   declare idRnd int;
-  declare faltasRnd int;
-  declare id_PersonaRnd int;
-  declare id_CursoRnd int;
-  declare actitudRnd varchar(8);
-  set counter=(select count(*)+1 from persona);
-  set id_PersonaRnd=(select id from persona where id=counter);
+  declare nombreRnd varchar(100);
+  set idRnd = (select count(*)+1 from persona);
   set contador=1;
-  while (contador<=numeroIns) do
-    if id_PersonaRnd!=null then
-      set id_PersonaRnd=(select id from persona where id=counter);
+  while (contador<=num_inserts) do
+    set nombreRnd = concat("Persona", idRnd);
+    insert into persona values(null, nombreRnd);
+    contador++;
+    idRnd++;
+  end while;
+end
+//
+
+--Gestiona
+
+drop procedure if exists Insert_gestiona;
+delimiter//
+create procedure Insert_gestiona(in num_inserts int)
+begin
+  declare id_DocenteRnd int;
+  declare id_CursoRnd int;
+  set counter=(select count(*)+1 from docente);
+  set id_DocenteRnd=(select id from docente where id=counter);
+  set contador=1;
+  while (contador<=num_inserts) do
+    if id_DocenteRnd!=null then
+      set id_DocenteRnd=(select id from docente where id=counter);
     end if;
     if id_Curso !=null then
       set id_CursoRnd=(select id from curso where id=counter);
     end if;
-    set faltasRnd = (select floor(rand()*(200 - 1) + 1));
-    if (faltasRnd >= 50) then
-      set actitudRnd = "negativo";
-    else
-      set actitudRnd = "positivo";
-    end if;
-    insert into alumno values(idRnd, faltasRnd, actitudRnd, id_PersonaRnd, id_CursoRnd);
+    insert into alumno values(id_CursoRnd, id_DocenteRnd);
     contador++;
     counter++;
   end while;
