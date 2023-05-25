@@ -1,5 +1,4 @@
 --Alumno
-
 drop procedure if exists Insert_alumno;
 delimiter//
 create procedure Insert_alumno(in num_inserts int)
@@ -32,9 +31,7 @@ begin
   end while;
 end
 //
-
 --Persona
-
 drop procedure if exists Insert_persona;
 delimiter//
 create procedure Insert_persona(in num_inserts int)
@@ -52,9 +49,7 @@ begin
   end while;
 end
 //
-
 --Docente
-
 drop PROCEDURE IF EXISTS inserts_Docente;
 delimiter //
 create PROCEDURE inserts_Docente(in numeroIns int)
@@ -64,10 +59,12 @@ begin
     declare counter int;
     declare contador int;
     set counter=(select count(*)+1 from persona);
+    set id_DocenteRnd=(select id from persona where id=counter);
     set contador=1;
     while (contador<=numeroIns) do
         set id_DocenteRnd=(select id from persona where id=counter);
         if id_DocenteRnd!=null then
+            set id_PersonaRnd=(select id from persona where id=counter);
             set trabajoRnd = elt(floor(rand()*4) + 1, 'Historia', 'Lenguaje', 'Matematicas','Filosofia');
             Insert into docente values(null,trabajoRnd,id_PersonaRnd);
         end if;
@@ -76,9 +73,7 @@ begin
     end while;
 end
 //
-
 --Gestiona
-
 drop procedure if exists Insert_gestiona;
 delimiter//
 create procedure Insert_gestiona(in num_inserts int)
@@ -103,12 +98,7 @@ begin
   end while;
 end
 //
-
-
-
-
 --Grupo
-
 drop procedure if exists Insert_grupo;
 delimiter//
 create procedure Insert_grupo(in num_inserts int)
@@ -123,8 +113,6 @@ begin
   end while;
 end
 //
-
-
 --Curso
 create PROCEDURE inserts_Curso(in numeroIns int)
 begin 
@@ -146,18 +134,17 @@ begin
     end while;
 end
 //
-
 --Calendario Faltas
-
-
 create PROCEDURE inserts_CalendarioFaltas(in numeroIns int)
 begin 
     declare fecha_FaltaRnd int;
     declare id_AlumnoRnd int;
     declare counter int;
     declare contador int;
+    set counter=(select count(*)+1 from persona);
+    set id_AlumnoRnd=(select id from alumno where id=counter)
     set counter=(select count(*)+1 from alumno);
-    
+
     set contador=1;
     while (contador<=numeroIns) do
         set id_AlumnoRnd=(select id from alumno where id=counter)
@@ -168,6 +155,7 @@ begin
                         + INTERVAL FLOOR(RAND() * 59) MINUTE
                         + INTERVAL FLOOR(RAND() * 59) SECOND
             );
+            set id_AlumnoRnd=(select id from alumno where id=counter);
             Insert into persona values(null,fecha_FaltaRnd,id_AlumnoRnd);
         end if;
         contador++;
@@ -195,11 +183,11 @@ begin
   while (contador<=num_inserts or id_AlumnoRnd!=null or id_GrupoRnd!=null) do
     set id_AlumnoRnd=(select id from alumno where id=counterAlumno);
     set id_GrupoRnd=(select id from grupo where id=counterGrupo);
-    
+
     if id_AlumnoRnd!=null and id_GrupoRnd !=null then
         insert into pertenece values(id_AlumnoRnd, id_GrupoRnd);
     end if;
-    
+
     contador++;
     counter++;
   end while;
@@ -226,11 +214,11 @@ begin
   while (contador<=num_inserts or id_ActividadRnd!=null or id_GrupoRnd!=null) do
     set id_ActividadRnd=(select id from actividad where id=counterActividad);
     set id_GrupoRnd=(select id from grupo where id=counterGrupo);
-    
+
     if id_ActividadRnd!=null and id_GrupoRnd !=null then
         insert into realiza_grupo values(id_ActividadRnd, id_GrupoRnd);
     end if;
-    
+
     contador++;
     counter++;
   end while;
@@ -256,11 +244,11 @@ begin
   while (contador<=num_inserts or id_ActividadRnd!=null or id_AlumnoRnd!=null) do
     set id_ActividadRnd=(select id from actividad where id=counterActividad);
     set id_AlumnoRnd=(select id from alumno where id=counterAlumno);
-    
+
     if id_ActividadRnd!=null and id_AlumnoRnd !=null then
         insert into realiza_alumno values(id_ActividadRnd, id_AlumnoRnd);
     end if;
-    
+
     contador++;
     counter++;
   end while;
