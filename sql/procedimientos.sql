@@ -99,7 +99,7 @@ begin
     if id_Curso !=null then
       set id_CursoRnd=(select id from curso where id=counter);
     end if;
-    insert into alumno values(id_CursoRnd, id_DocenteRnd);
+    insert into gestiona values(id_CursoRnd, id_DocenteRnd);
     contador++;
     counter++;
   end while;
