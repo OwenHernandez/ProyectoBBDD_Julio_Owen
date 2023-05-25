@@ -8,10 +8,12 @@ begin
   declare id_PersonaRnd int;
   declare id_CursoRnd int;
   declare actitudRnd varchar(8);
+  declare counter int;
+  declare contador int;
   set counter=(select count(*)+1 from persona);
   set id_PersonaRnd=(select id from persona where id=counter);
   set contador=1;
-  while (contador<=numeroIns) do
+  while (contador<=num_inserts) do
     if id_PersonaRnd!=null then
       set id_PersonaRnd=(select id from persona where id=counter);
     end if;
@@ -39,6 +41,7 @@ create procedure Insert_persona(in num_inserts int)
 begin
   declare idRnd int;
   declare nombreRnd varchar(100);
+  declare contador int;
   set idRnd = (select count(*)+1 from persona);
   set contador=1;
   while (contador<=num_inserts) do
@@ -82,6 +85,8 @@ create procedure Insert_gestiona(in num_inserts int)
 begin
   declare id_DocenteRnd int;
   declare id_CursoRnd int;
+  declare counter int;
+  declare contador int;
   set counter=(select count(*)+1 from docente);
   set id_DocenteRnd=(select id from docente where id=counter);
   set contador=1;
