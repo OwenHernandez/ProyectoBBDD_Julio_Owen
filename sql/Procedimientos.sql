@@ -1,18 +1,20 @@
---Persona
+--Grupo
 
-drop procedure if exists Insert_persona;
+drop procedure if exists Insert_grupo;
 delimiter//
-create procedure Insert_persona(in num_inserts int)
+create procedure Insert_grupo(in num_inserts int)
 begin
-  declare idRnd int;
-  declare nombreRnd varchar(100);
-  set idRnd = (select count(*)+1 from persona);
+  declare numeroRnd int;
+  declare tipoRnd enum;
+  declare contador int;
+  declare id_ActividadRnd int;
+  set id_ActividadRnd = 1;
   set contador=1;
   while (contador<=num_inserts) do
-    set nombreRnd = concat("Persona", idRnd);
-    insert into persona values(null, nombreRnd);
+    set numeroRnd = (select floor(rand()*(10 - 0) + 0));
     contador++;
-    idRnd++;
+    set tipoRnd = elt(floor(rand()*3) + 1, 'examen', 'destreza', 'actitud');
+    insert into actividad values(null, tipoRnd);
   end while;
 end
 //
