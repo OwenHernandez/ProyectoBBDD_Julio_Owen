@@ -56,7 +56,7 @@ create table calendario_faltas(
 drop table if exists grupo;
 create table grupo(
     id int not null auto_increment,
-    integrantes text,
+    integrantes int,
     PRIMARY KEY(id)
 );
 
