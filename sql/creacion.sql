@@ -27,7 +27,7 @@ create table curso(
     id int not null auto_increment,
     numero int,
     letra varchar(1),
-    tipo varchar(100),
+    tipo enum("ESO","Bachillerato"),
     PRIMARY KEY(id)
 );
 
