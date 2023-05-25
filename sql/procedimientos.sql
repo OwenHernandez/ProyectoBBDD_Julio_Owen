@@ -4,7 +4,6 @@ drop procedure if exists Insert_alumno;
 delimiter//
 create procedure Insert_alumno(in num_inserts int)
 begin
-  declare idRnd int;
   declare faltasRnd int;
   declare id_PersonaRnd int;
   declare id_CursoRnd int;
@@ -25,7 +24,7 @@ begin
     else
       set actitudRnd = "positivo";
     end if;
-    insert into alumno values(idRnd, faltasRnd, actitudRnd, id_PersonaRnd, id_CursoRnd);
+    insert into alumno values(null, faltasRnd, actitudRnd, id_PersonaRnd, id_CursoRnd);
     contador++;
     counter++;
   end while;
