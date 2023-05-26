@@ -59,3 +59,25 @@ from
   join grupo as g
     on pe.id_Grupo = g.id
 group by g.id;
+
+--vista actividad, grupo, alumno y nota
+
+create view actividades as
+select
+  ac.id as AcID,
+  a.tipo as tipo,
+  group_concat(concat(g.id, _utf8mb4' ', g.integrantes) separator ", ") as gruposRealiza,
+  group_concat(concat(a.id, _utf8mb4' ', p.nombre) separator ", ") as alumnosRealiza,
+  n.numero as nota
+from
+  persona as p join alumno as a
+    on p.id = a.id_Persona
+  join realiza_alumno as ra
+    on ra.id_Alumno = a.id
+  join actividad as ac
+    on ac.id = ra.idActividad
+  join realiza_grupo as rg
+    on rg.id_Actividad = ac.id
+  join grupo as g
+    on rg.id_Grupo = g.id
+group by ac.id;
