@@ -38,8 +38,8 @@ Todo esto hace posible que el modelo relacional este completamente normalizado.
 
 #### [Procedimientos](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/procedimientos.sql)
 
-#### [Vistas]()
+#### [Vistas](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/vistas.sql)
 
-#### [Indices]()
+#### [Indices](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/indices.sql)
 
-#### [Triggers]()
+#### [Triggers](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/triggers.sql)
