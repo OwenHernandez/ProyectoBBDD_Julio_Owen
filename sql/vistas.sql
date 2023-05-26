@@ -8,12 +8,12 @@ select
   group_concat(concat(c.numero, "º", c.letra, _utf8mb4' ', c.tipo) separator ", ") as curso
 from
   persona as p join docente as d
-    ON p.id = d.id_Persona
-  JOIN gestiona as g
-    ON d.id = g.id_Docente
-  JOIN curso as c
-    ON g.id_Curso = c.id
-GROUP BY d.id;
+    on p.id = d.id_Persona
+  join gestiona as g
+    on d.id = g.id_Docente
+  join curso as c
+    on g.id_Curso = c.id
+group by d.id;
 
 --vista alumno, persona, gestiona y curso
 
@@ -26,10 +26,10 @@ select
   group_concat(concat(c.numero, "º", c.letra, _utf8mb4' ', c.tipo) separator ", ") as curso
 from
   persona as p join alumno as a
-    ON p.id = a.id_Persona
-  JOIN curso as c
-    ON a.id_Curso = c.id
-GROUP BY a.id;
+    on p.id = a.id_Persona
+  join curso as c
+    on a.id_Curso = c.id
+group by a.id;
 
 --vista calendario_faltas y alumno
 
@@ -39,7 +39,23 @@ select
   group_concat(concat(p.nombre, _utf8mb4' ', c.fecha_Falta) separator ", ") as fecha_alumno
 from
   persona as p join alumno as a
-    ON p.id = a.id_Persona
-  JOIN calendario_faltas as c
-    ON a.id = c.id_Alumno
-GROUP BY c.id;
+    on p.id = a.id_Persona
+  join calendario_faltas as c
+    on a.id = c.id_Alumno
+group by c.id;
+
+--vista grupo y alumno
+
+create view grupos as
+select
+  g.id as GID,
+  g.integrantes as integrantes,
+  group_concat(concat(a.id, _utf8mb4' ', p.nombre) separator ", ") as miembros
+from
+  persona as p join alumno as a
+    on p.id = a.id_Persona
+  join pertenece as pe
+    on a.id = pe.id_Alumno
+  join grupo as g
+    on pe.id_Grupo = g.id
+group by g.id;
