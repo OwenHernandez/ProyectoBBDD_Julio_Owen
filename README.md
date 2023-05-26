@@ -34,3 +34,12 @@ Todo esto hace posible que el modelo relacional este completamente normalizado.
 
 ## Sql <a name="id4"></a>
 
+#### [Creación](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/creacion.sql)
+
+#### [Procedimientos](https://github.com/OwenHernandez/ProyectoBBDD_Julio_Owen/blob/main/sql/procedimientos.sql)
+
+#### [Vistas]()
+
+#### [Indices]()
+
+#### [Triggers]()
